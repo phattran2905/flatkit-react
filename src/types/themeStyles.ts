@@ -1,10 +1,13 @@
+import "@mui/material/styles";
+
 declare module "@mui/material/styles" {
 	interface Theme {}
-	// allow configuration using `createTheme`
-	interface ThemeOptions {
-		custom?: {
-			color?: any;
-			bgColor?: any;
-		};
+	interface ThemeOptions {}
+
+	interface PaletteOptions {
+		white?: any;
+		warn?: any;
+		dark?: any;
+		black?: any;
 	}
 }

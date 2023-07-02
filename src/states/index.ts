@@ -6,7 +6,7 @@ export interface GlobalState {
 }
 
 const initialState: GlobalState = {
-	mode: "dark",
+	mode: "light",
 };
 
 export const globalSlice = createSlice({

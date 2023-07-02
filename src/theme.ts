@@ -1,6 +1,59 @@
-import { PaletteMode, ThemeOptions, PaletteOptions } from "@mui/material";
+import { PaletteMode } from "@mui/material";
+import { PaletteOptions, ThemeOptions } from "@mui/material/styles";
+import "@types/themeStyles";
 
-const CustomColorPalette = {
+const BackgroundColors = {
+	primary: "#0cc2aa",
+	accent: "#a88add",
+	warn: "#fcc100",
+	info: "#6887ff",
+	success: "#6cc788",
+	warning: "#f77a99",
+	danger: "#f44455",
+	white: "#ffffff",
+	light: "#f1f2f3",
+	dark: "#2e3e4e",
+	black: "#2a2b3c",
+};
+
+export const themeSettings = (mode: PaletteMode): ThemeOptions => {
+	const darkThemeOptions: PaletteOptions = {
+		primary: { main: BackgroundColors.primary },
+		secondary: { main: BackgroundColors.accent },
+		success: { main: BackgroundColors.success },
+		info: { main: BackgroundColors.info },
+		error: { main: BackgroundColors.danger },
+		warning: { main: BackgroundColors.warning },
+		warn: { main: BackgroundColors.warn },
+		white: { main: "#313347" },
+		black: { main: BackgroundColors.black },
+		dark: { main: BackgroundColors.dark },
+		background: { default: BackgroundColors.black, paper: BackgroundColors.dark },
+	};
+
+	const lightThemeOptions: PaletteOptions = {
+		primary: { main: BackgroundColors.primary },
+		secondary: { main: BackgroundColors.accent },
+		success: { main: BackgroundColors.success },
+		info: { main: BackgroundColors.info },
+		error: { main: BackgroundColors.danger },
+		warning: { main: BackgroundColors.warning },
+		warn: { main: BackgroundColors.warn },
+		white: { main: BackgroundColors.white },
+		black: { main: BackgroundColors.black },
+		dark: { main: BackgroundColors.dark },
+		background: { default: BackgroundColors.light, paper: BackgroundColors.white },
+	};
+
+	return {
+		palette: {
+			mode,
+			...(mode === "dark" ? darkThemeOptions : lightThemeOptions),
+		},
+	};
+};
+
+export const CustomColorPalette = {
 	red: {
 		"50": "#FFEBEE",
 		"100": "#FFCDD2",
@@ -331,31 +384,4 @@ const CustomColorPalette = {
 		"Hint Text": "rgba(255,255,255,0.3)",
 		Dividers: "rgba(255,255,255,0.12)",
 	},
-};
-
-const BackgroundColors = {
-	primary: "#0cc2aa",
-	accent: "#a88add",
-	warn: "#fcc100",
-	info: "#6887ff",
-	success: "#6cc788",
-	warning: "#f77a99",
-	danger: "#f44455",
-	white: "#ffffff",
-	light: "#f1f2f3",
-	dark: "#2e3e4e",
-	black: "#2a2b3c",
-};
-
-export const themeSettings = (mode: PaletteMode): ThemeOptions => {
-	const darkThemeOptions: PaletteOptions = {};
-
-	const lightThemeOptions: PaletteOptions = {};
-
-	return {
-		palette: {
-			mode,
-			...(mode === "dark" ? darkThemeOptions : lightThemeOptions),
-		},
-	};
 };
