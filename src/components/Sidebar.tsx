@@ -2,6 +2,7 @@ import {
 	Avatar,
 	Badge,
 	Box,
+	Collapse,
 	Drawer,
 	List,
 	ListItem,
@@ -29,11 +30,14 @@ import {
 	AdjustRounded,
 	List as ListIcon,
 	Fitbit,
+	StarBorder,
+	ExpandLess,
+	ExpandMore,
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import userImage1 from "@/assets/a0.jpg";
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const DrawerHeader = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -50,6 +54,11 @@ type Props = {
 };
 function Sidebar({ isSideBarOpen, setIsSidebarOpen }: Props) {
 	const theme = useTheme();
+	const [open, setOpen] = useState(true);
+
+	const handleClick = () => {
+		setOpen(!open);
+	};
 
 	const navItems = [
 		{ title: "Main", icon: null, subItems: null },
@@ -143,37 +152,39 @@ function Sidebar({ isSideBarOpen, setIsSidebarOpen }: Props) {
 				}}
 			>
 				<Typography
-					variant="h6"
-					fontSize={"1.25rem"}
-					width={"100%"}
+					fontSize={"1.6rem"}
+					fontWeight={"bold"}
 					padding={"1rem"}
 				>
 					Flatkit
 				</Typography>
 			</DrawerHeader>
-			<List sx={{ padding: 0 }}>
+			<List>
 				{navItems.map((item, index) => (
 					<ListItem
 						key={index}
-						sx={{
-							padding: "0 1rem",
-						}}
+						disablePadding
 					>
 						{!item.icon ? (
-							<ListItemText
-								primary={item.title}
-								color={theme.palette.primary.main}
+							<Typography
+								variant="body1"
 								sx={{
-									"& .MuiListItemText-primary": {
-										fontSize: "0.875rem",
-										opacity: "0.75",
-									},
+									opacity: "0.75",
+									marginY: "0.75rem",
+									color: theme.palette.primary.main,
+									padding: "0 1.25rem",
+									fontSize: "0.9rem",
 								}}
-							/>
+							>
+								{item.title}
+							</Typography>
 						) : (
 							<ListItemButton
 								sx={{
-									padding: "0.5rem 0",
+									padding: "0.75rem 1.25rem",
+									"&:hover .MuiListItemText-primary, &:hover .MuiListItemIcon-root, ": {
+										opacity: 1,
+									},
 								}}
 							>
 								<ListItemIcon
@@ -190,7 +201,6 @@ function Sidebar({ isSideBarOpen, setIsSidebarOpen }: Props) {
 									sx={{
 										margin: 0,
 										"& .MuiListItemText-primary": {
-											fontSize: "0.875rem",
 											opacity: "0.75",
 										},
 									}}
@@ -199,7 +209,33 @@ function Sidebar({ isSideBarOpen, setIsSidebarOpen }: Props) {
 						)}
 					</ListItem>
 				))}
+				<ListItemButton onClick={handleClick}>
+					<ListItemIcon>
+						<InboxIcon />
+					</ListItemIcon>
+					<ListItemText primary="Inbox" />
+					{open ? <ExpandLess /> : <ExpandMore />}
+				</ListItemButton>
+				<Collapse
+					in={open}
+					timeout="auto"
+					unmountOnExit
+				>
+					<List
+						component="div"
+						disablePadding
+					>
+						<ListItemButton sx={{ pl: 4 }}>
+							<ListItemIcon>
+								<StarBorder />
+							</ListItemIcon>
+							<ListItemText primary="Starred" />
+						</ListItemButton>
+					</List>
+				</Collapse>
 			</List>
+
+			{/* User Avatar */}
 			<Box
 				marginTop={"auto"}
 				borderTop={`1px solid rgba(120, 130, 140, 0.13)`}
@@ -207,20 +243,25 @@ function Sidebar({ isSideBarOpen, setIsSidebarOpen }: Props) {
 			>
 				<Box
 					display={"flex"}
-					gap={"1rem"}
+					alignItems={"center"}
+					gap={"1.5rem"}
 				>
 					<Avatar
 						alt="Jean Reyes"
 						src={userImage1}
+						sx={{
+							width: 50,
+							height: 50,
+						}}
 					/>
 					<Box
-						flexGrow={1}
 						display={"flex"}
 						flexDirection={"column"}
 					>
 						<Typography
 							fontWeight={"bold"}
-							fontSize={"0.875rem"}
+							fontSize={"1rem"}
+							sx={{ opacity: "0.75" }}
 						>
 							Jean Reyes
 						</Typography>
@@ -228,20 +269,21 @@ function Sidebar({ isSideBarOpen, setIsSidebarOpen }: Props) {
 							display={"flex"}
 							justifyContent={"start"}
 							alignItems={"center"}
+							marginTop="2px"
 						>
 							<Box
 								sx={{
-									width: "10px",
-									height: "10px",
+									width: "14px",
+									height: "14px",
 									backgroundColor: theme.palette.success.main,
-									marginRight: "0.5rem",
+									marginRight: "0.75rem",
 									borderRadius: "100%",
 								}}
 							/>
 							<Typography
 								textTransform={"lowercase"}
-								fontSize={"0.875rem"}
 								sx={{
+									fontSize: "0.9rem",
 									opacity: "0.75",
 								}}
 							>
