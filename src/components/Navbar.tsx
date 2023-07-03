@@ -15,7 +15,6 @@ import {
 	Mail as MailIcon,
 	Notifications as NotificationsIcon,
 	AccountCircle,
-	Search as SearchIcon,
 	More as MoreIcon,
 } from "@mui/icons-material";
 import { useState } from "react";

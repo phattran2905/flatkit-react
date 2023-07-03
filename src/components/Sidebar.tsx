@@ -4,18 +4,17 @@ import {
 	Box,
 	Collapse,
 	Drawer,
+	IconButton,
 	List,
 	ListItem,
 	ListItemButton,
 	ListItemIcon,
 	ListItemText,
-	PaletteColor,
+	ListSubheader,
 	Typography,
 	styled,
-	useMediaQuery,
 	useTheme,
 } from "@mui/material";
-import "@types/themeStyles";
 import {
 	ChevronLeft as ChevronLeftIcon,
 	ChevronRight as ChevronRightIcon,
@@ -30,12 +29,13 @@ import {
 	AdjustRounded,
 	List as ListIcon,
 	Fitbit,
-	StarBorder,
-	ExpandLess,
-	ExpandMore,
+	Menu as MenuIcon,
 } from "@mui/icons-material";
+// import "@types/themeStyles";
 import { useEffect, useState } from "react";
 import userImage1 from "@/assets/a0.jpg";
+import NavList from "./NavList";
+import { NavItem as NavItemType } from "@/types/nav";
 
 const drawerWidth = 250;
 
@@ -54,80 +54,92 @@ type Props = {
 };
 function Sidebar({ isSideBarOpen, setIsSidebarOpen }: Props) {
 	const theme = useTheme();
-	const [open, setOpen] = useState(true);
-
-	const handleClick = () => {
-		setOpen(!open);
-	};
-
-	const navItems = [
-		{ title: "Main", icon: null, subItems: null },
-		{ title: "Dashboard", icon: <Looks />, subItems: null },
-		{ title: "Apps", icon: <Apps />, subItems: ["Inbox", "Contacts", "Calendar"] },
-		{ title: "Layouts", icon: <ViewModule />, subItems: ["Header", "Aside", "Footer"] },
-		{ title: "Widgets", icon: <Notes />, subItems: null },
-		{ title: "Components", icon: null, subItems: null },
+	const navList: Array<{ title: string; navItems?: NavItemType[] }> = [
 		{
-			title: "UI Kit",
-			icon: <Tune />,
-			subItems: [
-				"Arrow",
-				"Box",
-				"Button",
-				"Color",
-				"Dropdown",
-				"Grid",
-				"Icon",
-				"Label",
-				"List Group",
-				"Modal",
-				"Nav",
-				"Progress",
-				"Social",
-				"Sortable",
-				"Streamline",
-				"Timeline",
-				"Vector Map",
+			title: "Main",
+			navItems: [
+				{ name: "Dashboard", icon: <Looks /> },
+				{
+					name: "Apps",
+					icon: <Apps />,
+					badge: 5,
+					subNavItems: ["Inbox", "Contacts", "Calendar"],
+				},
+				{ name: "Layouts", icon: <ViewModule />, subNavItems: ["Header", "Aside", "Footer"] },
+				{ name: "Widgets", icon: <Notes /> },
 			],
 		},
 		{
-			title: "Pages",
-			icon: <Flip />,
-			subItems: [
-				"Profile",
-				"Setting",
-				"Search",
-				"FAQ",
-				"Gallery",
-				"Invoice",
-				"Price",
-				"Blank",
-				"Sign In",
-				"Sign Up",
-				"Forgot Password",
-				"Lockme Screen",
-				"Error 404",
-				"Error 500",
+			title: "Components",
+			navItems: [
+				{
+					name: "UI Kit",
+					icon: <Tune />,
+					badge: 8,
+					subNavItems: [
+						"Arrow",
+						"Box",
+						"Button",
+						"Color",
+						"Dropdown",
+						"Grid",
+						"Icon",
+						"Label",
+						"List Group",
+						"Modal",
+						"Nav",
+						"Progress",
+						"Social",
+						"Sortable",
+						"Streamline",
+						"Timeline",
+						"Vector Map",
+					],
+				},
+				{
+					name: "Pages",
+					icon: <Flip />,
+					subNavItems: [
+						"Profile",
+						"Setting",
+						"Search",
+						"FAQ",
+						"Gallery",
+						"Invoice",
+						"Price",
+						"Blank",
+						"Sign In",
+						"Sign Up",
+						"Forgot Password",
+						"Lockme Screen",
+						"Error 404",
+						"Error 500",
+					],
+				},
+				{
+					name: "Form",
+					icon: <AdjustRounded />,
+					subNavItems: [
+						"Form Layout",
+						"Form Element",
+						"Form Validation",
+						"Select",
+						"Editor",
+						"Picker",
+						"Wizard",
+						"File Upload",
+					],
+				},
+				{
+					name: "Tables",
+					icon: <ListIcon />,
+					subNavItems: ["Static table", "Datatable", "Footable"],
+				},
+				{ name: "Charts", icon: <Fitbit />, badge: "N", subNavItems: ["Chart", "Echarts"] },
 			],
 		},
-		{
-			title: "Form",
-			icon: <AdjustRounded />,
-			subItems: [
-				"Form Layout",
-				"Form Element",
-				"Form Validation",
-				"Select",
-				"Editor",
-				"Picker",
-				"Wizard",
-				"File Upload",
-			],
-		},
-		{ title: "Tables", icon: <ListIcon />, subItems: ["Static table", "Datatable", "Footable"] },
-		{ title: "Charts", icon: <Fitbit />, subItems: ["Chart", "Echarts"] },
-		{ title: "Help", icon: null, subItems: null },
-		{ title: "Documents", icon: null, subItems: null },
+		{ title: "Help" },
+		{ title: "Documents" },
 	];
 
 	return (
@@ -159,81 +171,15 @@ function Sidebar({ isSideBarOpen, setIsSidebarOpen }: Props) {
 					Flatkit
 				</Typography>
 			</DrawerHeader>
-			<List>
-				{navItems.map((item, index) => (
-					<ListItem
-						key={index}
-						disablePadding
-					>
-						{!item.icon ? (
-							<Typography
-								variant="body1"
-								sx={{
-									opacity: "0.75",
-									marginY: "0.75rem",
-									color: theme.palette.primary.main,
-									padding: "0 1.25rem",
-									fontSize: "0.9rem",
-								}}
-							>
-								{item.title}
-							</Typography>
-						) : (
-							<ListItemButton
-								sx={{
-									padding: "0.75rem 1.25rem",
-									"&:hover .MuiListItemText-primary, &:hover .MuiListItemIcon-root, ": {
-										opacity: 1,
-									},
-								}}
-							>
-								<ListItemIcon
-									sx={{
-										opacity: "0.75",
-										color: theme.palette.primary.main,
-										minWidth: "3rem",
-									}}
-								>
-									{item.icon}
-								</ListItemIcon>
-								<ListItemText
-									primary={item.title}
-									sx={{
-										margin: 0,
-										"& .MuiListItemText-primary": {
-											opacity: "0.75",
-										},
-									}}
-								/>
-							</ListItemButton>
-						)}
-					</ListItem>
-				))}
-				<ListItemButton onClick={handleClick}>
-					<ListItemIcon>
-						<InboxIcon />
-					</ListItemIcon>
-					<ListItemText primary="Inbox" />
-					{open ? <ExpandLess /> : <ExpandMore />}
-				</ListItemButton>
-				<Collapse
-					in={open}
-					timeout="auto"
-					unmountOnExit
-				>
-					<List
-						component="div"
-						disablePadding
-					>
-						<ListItemButton sx={{ pl: 4 }}>
-							<ListItemIcon>
-								<StarBorder />
-							</ListItemIcon>
-							<ListItemText primary="Starred" />
-						</ListItemButton>
-					</List>
-				</Collapse>
-			</List>
+
+			{/* NavList */}
+			{navList.map((item, index) => (
+				<NavList
+					key={index}
+					title={item.title}
+					navItems={item?.navItems}
+				/>
+			))}
 
 			{/* User Avatar */}
 			<Box
