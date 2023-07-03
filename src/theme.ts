@@ -18,37 +18,43 @@ const BackgroundColors = {
 
 export const themeSettings = (mode: PaletteMode): ThemeOptions => {
 	const darkThemeOptions: PaletteOptions = {
-		primary: { main: BackgroundColors.primary },
-		secondary: { main: BackgroundColors.accent },
+		primary: { main: BackgroundColors.black, light: "#313347", dark: BackgroundColors.dark },
+		secondary: { main: BackgroundColors.dark },
 		success: { main: BackgroundColors.success },
 		info: { main: BackgroundColors.info },
 		error: { main: BackgroundColors.danger },
 		warning: { main: BackgroundColors.warning },
-		warn: { main: BackgroundColors.warn },
-		white: { main: "#313347" },
-		black: { main: BackgroundColors.black },
-		dark: { main: BackgroundColors.dark },
 		background: { default: BackgroundColors.black, paper: BackgroundColors.dark },
 	};
 
 	const lightThemeOptions: PaletteOptions = {
-		primary: { main: BackgroundColors.primary },
-		secondary: { main: BackgroundColors.accent },
+		primary: {
+			main: BackgroundColors.white,
+			light: BackgroundColors.light,
+			dark: BackgroundColors.dark,
+		},
+		secondary: { main: BackgroundColors.light },
 		success: { main: BackgroundColors.success },
 		info: { main: BackgroundColors.info },
 		error: { main: BackgroundColors.danger },
 		warning: { main: BackgroundColors.warning },
-		warn: { main: BackgroundColors.warn },
-		white: { main: BackgroundColors.white },
-		black: { main: BackgroundColors.black },
-		dark: { main: BackgroundColors.dark },
-		background: { default: BackgroundColors.light, paper: BackgroundColors.white },
+		background: { default: BackgroundColors.light, paper: BackgroundColors.dark },
 	};
 
 	return {
 		palette: {
 			mode,
 			...(mode === "dark" ? darkThemeOptions : lightThemeOptions),
+			custom: {
+				primary: BackgroundColors.primary,
+				secondary: BackgroundColors.accent,
+				warn: BackgroundColors.warn,
+				white: BackgroundColors.white,
+				light: BackgroundColors.light,
+				black: BackgroundColors.black,
+				dark: BackgroundColors.dark,
+				// white: "#313347" ,
+			},
 		},
 	};
 };

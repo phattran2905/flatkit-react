@@ -5,9 +5,9 @@ declare module "@mui/material/styles" {
 	interface ThemeOptions {}
 
 	interface PaletteOptions {
-		white?: any;
-		warn?: any;
-		dark?: any;
-		black?: any;
+		custom?: any;
+	}
+	interface Palette {
+		custom?: any;
 	}
 }
