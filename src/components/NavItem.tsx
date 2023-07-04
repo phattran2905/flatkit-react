@@ -81,9 +81,11 @@ function NavItemHasChildren({ name, subNavItems, icon, badge, theme }: Props) {
 					disablePadding
 				>
 					{subNavItems?.map((subNavItem, index) => (
-						<ListItemButton sx={{ pl: 8 }}>
+						<ListItemButton
+							key={index}
+							sx={{ pl: 8 }}
+						>
 							<ListItemText
-								key={index}
 								primary={subNavItem}
 								sx={{
 									"& .MuiListItemText-primary": {

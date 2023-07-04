@@ -1,5 +1,5 @@
 import { NavItem as NavItemType } from "@/types/nav";
-import { List, ListItemButton, ListSubheader, useTheme } from "@mui/material";
+import { List, ListSubheader, useTheme } from "@mui/material";
 import NavItem from "./NavItem";
 
 type Props = {

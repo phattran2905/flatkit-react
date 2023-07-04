@@ -180,6 +180,7 @@ function Navbar({ isSideBarOpen, setIsSidebarOpen }: Props) {
 						edge="start"
 						color="inherit"
 						aria-label="open drawer"
+						onClick={() => setIsSidebarOpen(!isSideBarOpen)}
 						sx={{ mr: 2 }}
 					>
 						<MenuIcon />
@@ -230,22 +231,8 @@ function Navbar({ isSideBarOpen, setIsSidebarOpen }: Props) {
 							<AccountCircle />
 						</IconButton>
 					</Box>
-					<Box sx={{ display: { xs: "flex", md: "none" } }}>
-						<IconButton
-							size="large"
-							aria-label="show more"
-							aria-controls={mobileMenuId}
-							aria-haspopup="true"
-							onClick={handleMobileMenuOpen}
-							color="inherit"
-						>
-							<MoreIcon />
-						</IconButton>
-					</Box>
 				</Toolbar>
 			</AppBar>
-			{renderMobileMenu}
-			{renderMenu}
 		</Box>
 	);
 }

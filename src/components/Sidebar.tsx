@@ -1,25 +1,5 @@
+import { Avatar, Box, Drawer, Typography, styled, useTheme } from "@mui/material";
 import {
-	Avatar,
-	Badge,
-	Box,
-	Collapse,
-	Drawer,
-	IconButton,
-	List,
-	ListItem,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-	ListSubheader,
-	Typography,
-	styled,
-	useTheme,
-} from "@mui/material";
-import {
-	ChevronLeft as ChevronLeftIcon,
-	ChevronRight as ChevronRightIcon,
-	Inbox as InboxIcon,
-	Mail as MailIcon,
 	Looks,
 	Apps,
 	ViewModule,
@@ -29,15 +9,11 @@ import {
 	AdjustRounded,
 	List as ListIcon,
 	Fitbit,
-	Menu as MenuIcon,
 } from "@mui/icons-material";
 // import "@types/themeStyles";
-import { useEffect, useState } from "react";
 import userImage1 from "@/assets/a0.jpg";
 import NavList from "./NavList";
 import { NavItem as NavItemType } from "@/types/nav";
-
-const drawerWidth = 250;
 
 const DrawerHeader = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -45,14 +21,15 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 	padding: theme.spacing(0, 1),
 	// necessary for content to be below app bar
 	...theme.mixins.toolbar,
-	justifyContent: "flex-end",
+	justifyContent: "start",
 }));
 
 type Props = {
+	drawerWidth: number;
 	isSideBarOpen: boolean;
 	setIsSidebarOpen: (value: boolean) => void;
 };
-function Sidebar({ isSideBarOpen, setIsSidebarOpen }: Props) {
+function Sidebar({ drawerWidth, isSideBarOpen, setIsSidebarOpen }: Props) {
 	const theme = useTheme();
 	const navList: Array<{ title: string; navItems?: NavItemType[] }> = [
 		{
@@ -156,13 +133,9 @@ function Sidebar({ isSideBarOpen, setIsSidebarOpen }: Props) {
 			variant="persistent"
 			anchor="left"
 			open={isSideBarOpen}
+			onClose={() => setIsSidebarOpen(false)}
 		>
-			<DrawerHeader
-				theme={theme}
-				sx={{
-					justifyContent: "start",
-				}}
-			>
+			<DrawerHeader theme={theme}>
 				<Typography
 					fontSize={"1.6rem"}
 					fontWeight={"bold"}
